@@ -19,7 +19,7 @@ To install `docker-compose` visit the following [link](https://docs.docker.com/c
 
 <a name="desc"></a>
 ### 2. Description
-In this project we implemented a dockerized service to process users data. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
+In this project we implemented a dockerized service to process users data, which is equavilent to **Level 3*. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
 for each user (if any) and then stores the intermediate results in `minio`. Finally all processed data is then migrated to `postgres` database. The service 
 periodically processes the data inside `minio/srcdata`. You can interact with the service with a `flask` server that works on two endpoints
 - POST http://localhost:5000/data - Manually run data processing in `minio/src_data`
