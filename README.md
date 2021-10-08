@@ -195,5 +195,5 @@ def index_of_target(nums: list, target: int):
 ![ports](ports.png)
 Note that the list of processes was very big and couldn't fit in one screen shot.
 2. List process environment variables by given PID - solution: ``sudo cat /proc/`pgrep 'the process name'`/environ``
-![environ](enviorn.png)
+![environ](environ.png)
 3. 
