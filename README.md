@@ -1,10 +1,17 @@
 # provectus-internship-task
 
 ## Table of contents
+1. [ Data Processing Task - Level 3. ](#level3)
+2. [ Coding Tasks for Data Engineers. ](#codingtasks)
+
+<a name="level3"></a>
+## 1. Data Processing Task - Level 3
+
 1. [ Prerequisites. ](#prereq)
 2. [ Description. ](#desc)
 3. [ Installation and Running. ](#install)
 4. [ Extra Notes. ](#usage)
+
 
 <a name="prereq"></a>
 ### 1. Prerequisites
@@ -19,7 +26,7 @@ To install `docker-compose` visit the following [link](https://docs.docker.com/c
 
 <a name="desc"></a>
 ### 2. Description
-In this project we implemented a dockerized service to process users data, which is equavilent to **Level 3*. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
+In this project we implemented a dockerized service to process users data, which is equavilent to **Level 3**. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
 for each user (if any) and then stores the intermediate results in `minio`. Finally all processed data is then migrated to `postgres` database. The service 
 periodically processes the data inside `minio/srcdata`. You can interact with the service with a `flask` server that works on two endpoints
 - POST http://localhost:5000/data - Manually run data processing in `minio/src_data`
@@ -77,4 +84,16 @@ to give access to `srcdata` so you can paste your data there:
 sudo chmod 777 srcdata/
 ```
 
+<a name="codingtasks"></a>
+## 2. Coding Tasks for Data Engineers
 
+### SQL
+
+```
+SELECT users.user_id::INTEGER as user_id
+FROM users
+LEFT JOIN departments
+ON users.user_id::INTEGER = departments.user_id
+WHERE departments.user_id is NULL OR departments.department_id != 1
+ORDER BY users.user_id::INTEGER;
+```
