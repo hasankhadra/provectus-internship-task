@@ -90,10 +90,9 @@ sudo chmod 777 srcdata/
 ### SQL
 
 ```
-SELECT users.user_id::INTEGER as user_id
+SELECT users.id as id
 FROM users
 LEFT JOIN departments
-ON users.user_id::INTEGER = departments.user_id
-WHERE departments.user_id is NULL OR departments.department_id != 1
-ORDER BY users.user_id::INTEGER;
+ON users.id = departments.user_id
+WHERE departments.user_id is NULL OR departments.department_id != 1;
 ```
