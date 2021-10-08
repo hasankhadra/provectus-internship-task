@@ -88,7 +88,7 @@ sudo chmod 777 srcdata/
 ## 2. Coding Tasks for Data Engineers
 
 ### SQL
-
+1. 
 ```
 SELECT users.id as id
 FROM users
@@ -96,3 +96,100 @@ LEFT JOIN departments
 ON users.id = departments.user_id
 WHERE departments.user_id is NULL OR departments.department_id != 1;
 ```
+
+2.
+```
+SELECT last_name 
+FROM user
+GROUP BY last_name
+HAVING COUNT(last_name) > 1;
+```
+
+3.
+```
+SELECT MAX(user.username) AS username, MAX(salary.salary) AS salary
+FROM user, salary
+WHERE user.id = salary.user_id AND salary.salary NOT IN (
+	SELECT MAX(salary)
+	FROM salary
+);
+```
+Note that we wrote `MAX(user.username)` instead of `user.username` because if the `ONLY_FULL_GROUP_BY` is disabled 
+in the server configuration it will give an error. However, if the `ONLY_FULL_GROUP_BY` is enabled, then the `MAX` keyword
+can be removed and the query will work just fine.
+
+### Algorithms and Data Structures
+1.
+```
+def count_connections(list1: list, list2: list) -> int:
+    cnt = {}
+
+    # fill in the cnt dictionary where cnt[i] contains
+    # the number of times the value i exists in list1
+    for i in list1:
+        if cnt.get(i) is None:
+            cnt[i] = 1
+        else:
+            cnt[i] += 1
+
+    count = 0
+
+    # for each value i in list2, we sum the number of times
+    # this value has occurred in list1
+    for i in list2:
+        count += cnt[i] if not cnt.get(i) is None else 0
+
+    return count
+```
+2.
+```
+def longest_non_repeating_substring(s: str) -> int:
+
+    # the smallest valid start of a beginning of the substring
+    start = 0
+    ans = 0
+
+    # contains the last index of each character in the string
+    last_index = {}
+
+    for i in range(len(s)):
+
+        # if this letter is unique till index i
+        if not last_index.get(s[i]) is None:
+            start = max(start, last_index[s[i]] + 1)
+
+        # update the answer
+        ans = max(ans, i - start + 1)
+
+        # update the last seen index of character s[i]
+        last_index[s[i]] = i
+
+    return ans
+```
+3.
+```
+def index_of_target(nums: list, target: int):
+    l, r = 0, len(nums) - 1
+
+    # The smallest integer in nums greater or equal to target
+    upper_bound = r + 1
+
+    # use binary search to locate the index
+    while l <= r:
+
+        mid = (l + r) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] > target:
+            upper_bound = mid
+            r = mid - 1
+        else:
+            l = mid + 1
+
+    return upper_bound
+```
+### Linux Shell
+1. `lsof -i :443 & lsof -i :80`
+2. 
+3. ``sudo cat /proc/`pgrep 'the process name'`/environ``
