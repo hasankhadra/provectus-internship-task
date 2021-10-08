@@ -1,5 +1,3 @@
-import io
-import os
 from flask import Flask, jsonify, request
 from dataprocessing.main import DataProcessing
 from apscheduler.schedulers.background import BackgroundScheduler

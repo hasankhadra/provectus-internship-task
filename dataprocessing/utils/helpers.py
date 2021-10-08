@@ -1,7 +1,7 @@
 import _io
 import csv
 import datetime
-from dataprocessing.minioConnect import myMinio
+from dataprocessing.minioConnect import MyMinio
 import time
 epoch = datetime.datetime.utcfromtimestamp(0)
 
@@ -20,7 +20,7 @@ def make_2d_list(lst: list, k: int):
     return rows
 
 
-def test_files_validity(minioClient: myMinio, csv_files: list, image_files: list, bucket_name: str):
+def test_files_validity(minioClient: MyMinio, csv_files: list, image_files: list, bucket_name: str):
     """
     Check if the source data files are valid. Check if csv files contain three columns.
     Check if csv files contain values for each of the three columns.
