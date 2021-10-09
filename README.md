@@ -125,7 +125,7 @@ automatically use the local `.env` file for the connections. In case you want us
 you can modify any of the env variables in the `.env` file.
 
 **IMPORTANT**:
-To test the code locally, you need to install `python-decouple` with the command `pip install python-decouple`.
+To test the code locally, you need to manually install the libraries inside `requirements.txt` since docker won't download it for local use.
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
