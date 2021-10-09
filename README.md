@@ -91,15 +91,15 @@ inside `minio` and also in the `postgres` database.
 <a name="usage"></a>
 ### 5. Extra Notes
 
-After you run the `docker-compose`, to manually add data to `srcdata` you need to `cd` to `provectus-internship-task/minio` and run the following command 
+- After you run the `docker-compose`, to manually add data to `srcdata` you need to `cd` to `provectus-internship-task/minio` and run the following command 
 to give access to `srcdata` so you can paste your data there:
 ```
 sudo chmod 777 srcdata/
 ```
-Now you can paste data inside the `srcdata` and test the code.
+  Now you can paste data inside the `srcdata` and test the code.
 
 
-To see the data stored in `postgres` you need to open [http://0.0.0.0:5050/browser/](http://0.0.0.0:5050/browser/) in your browser. You will be prompted to 
+- To see the data stored in `postgres` you need to open [http://0.0.0.0:5050/browser/](http://0.0.0.0:5050/browser/) in your browser. You will be prompted to 
 enter a master password. If you haven't changed it before it should be `postgres`. Then, you need to create a server. Put any name you want, but make sure 
 to put the following credintials correctly:
 ```
@@ -109,6 +109,15 @@ Maintenance database = postgres
 Username = postgres
 Password = postgres
 ```
+
+- In the `Dockerfile` I added the `ENV` variables for the configuration of the connections for `minio` and `postgres`. Although these 
+environment variables already exist in the `docker-compose.yml` file, but they're only available during the build of the image but not after the image is built.
+Now, to run the code localy, you need to remove the `web-service` from the `docker-compose.yml`. Then run the `sudo docker-compose up --build`, and then run
+`python3 app.py` in the `provectus-internship-task` directory. 
+
+I added a `.env` file to configure the connection locally. The code is set up so that, if it's not running on docker, it will
+automatically use the local `.env` file for the connections.
+
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
