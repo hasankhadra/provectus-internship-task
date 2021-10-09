@@ -195,5 +195,11 @@ def index_of_target(nums: list, target: int):
 ![ports](ports.png)
 Note that the list of processes was very big and couldn't fit in one screen shot.
 2. List process environment variables by given PID - solution: ``sudo cat /proc/`pgrep 'the process name'`/environ``
-![environ](environ.png)
-3. 
+![environ](env.png)
+3. Launch a python program my_program.py through CLI in the background. solution: `nohup python3 my_program.py &`
+4. How would you close it after some period of time? solution: 
+
+First find the process PID using the command `ps ax | grep my_program.py`.
+
+Then to stop the process that is running the script, we using the command `kill 'PID of process'`
+
