@@ -39,6 +39,8 @@ def get_data():
 
     # Read the filters
     is_image_exists = request.args.get('is_image_exists', -1)
+    if is_image_exists != -1:
+    	is_image_exists = is_image_exists.lower()
     min_age_years = request.args.get('min_age', -1)
     max_age_years = request.args.get('max_age', -1)
 

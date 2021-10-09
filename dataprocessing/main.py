@@ -76,9 +76,9 @@ class DataProcessing:
         data = make_2d_list(data, 5)
 
         if filters['is_image_exists'] != -1:
-            if filters['is_image_exists'] == 'True':
+            if filters['is_image_exists'] == 'true':
                 data = [row for row in data if row[4] != "No image found"]
-            elif filters['is_image_exists'] == 'False':
+            elif filters['is_image_exists'] == 'false':
                 data = [row for row in data if row[4] == "No image found"]
 
         if filters['min_age'] != -1:
