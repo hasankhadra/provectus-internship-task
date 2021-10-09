@@ -4,9 +4,23 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from dataprocessing.minioConnect import MyMinio
 from dataprocessing.postgresConnect import MyPgConnect
+import os
+from decouple import config
 
 SRC_DATA_PATH = 'srcdata'
 PROCESSED_DATA_PATH = 'processeddata'
+
+
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", config("MINIO_ACCESS_KEY"))
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", config("MINIO_SECRET_KEY"))
+
+POSTGRES_DB = os.getenv("POSTGRES_DB", config("POSTGRES_DB"))
+POSTGRES_USER = os.getenv("POSTGRES_USER", config("POSTGRES_USER"))
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", config("POSTGRES_PASSWORD"))
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", config("POSTGRES_HOST"))
+
+FLASK_RUN_HOST = os.getenv("FLASK_RUN_HOST", config("FLASK_RUN_HOST"))
+FLASK_RUN_PORT = int(os.getenv("FLASK_RUN_PORT", config("FLASK_RUN_PORT")))
 
 app = Flask(__name__)
 
@@ -36,11 +50,10 @@ def process_data():
 
 @app.route("/data", methods=['GET'])
 def get_data():
-
     # Read the filters
     is_image_exists = request.args.get('is_image_exists', -1)
     if is_image_exists != -1:
-    	is_image_exists = is_image_exists.lower()
+        is_image_exists = is_image_exists.lower()
     min_age_years = request.args.get('min_age', -1)
     max_age_years = request.args.get('max_age', -1)
 
@@ -51,7 +64,7 @@ def get_data():
 if __name__ == "__main__":
 
     # Connect to minio
-    myMinioClient = MyMinio('minio-access-key', 'minio-secret-key')
+    myMinioClient = MyMinio(MINIO_ACCESS_KEY, MINIO_SECRET_KEY)
 
     # Create the two main buckets
     myMinioClient.create_bucket(SRC_DATA_PATH)
@@ -65,11 +78,11 @@ if __name__ == "__main__":
         myMinioClient.add_file(PROCESSED_DATA_PATH, 'output.csv', header)
 
     # connect to pgadmin
-    pg_instance = MyPgConnect(dbname='internship', user='postgres',
-                              password='postgres', host='db')
+    pg_instance = MyPgConnect(dbname='internship', user=POSTGRES_USER,
+                              password=POSTGRES_PASSWORD, host=POSTGRES_HOST)
 
     # create the main table
     pg_instance.create_table_users()
 
     # run the flask app
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host=FLASK_RUN_HOST, port=FLASK_RUN_PORT)

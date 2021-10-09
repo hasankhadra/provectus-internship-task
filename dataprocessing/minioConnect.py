@@ -5,6 +5,9 @@ from minio.select import SelectRequest, CSVInputSerialization, CSVOutputSerializ
 from minio import Minio
 import glob
 import os
+from decouple import config
+
+MINIO_HOST = os.getenv("MINIO_HOST", config("MINIO_HOST"))
 
 
 class MyMinio:
@@ -21,7 +24,7 @@ class MyMinio:
         """
 
         return Minio(
-            'minio:9000',
+            f'{MINIO_HOST}:9000',
             access_key=self.access,
             secret_key=self.secret,
             secure=False

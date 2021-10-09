@@ -31,7 +31,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./postgres-data:/var/lib/postgresql
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
@@ -45,11 +45,12 @@ services:
     depends_on:
       - db
 
-  web:
+  web-service:
     build: .
     restart: always
     ports:
       - 5000:5000
+    # We used depends_on to make sure all other services are running before starting running this container
     depends_on:
       - db
       - pgadmin

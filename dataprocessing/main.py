@@ -4,6 +4,15 @@ from dataprocessing.utils.helpers import dict_to_list, millis_to_age, make_2d_li
 from dataprocessing.minioConnect import MyMinio
 from minio.error import S3Error
 from dataprocessing.postgresConnect import MyPgConnect
+from decouple import config
+
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", config("MINIO_ACCESS_KEY"))
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", config("MINIO_SECRET_KEY"))
+
+POSTGRES_DB = os.getenv("POSTGRES_DB", config("POSTGRES_DB"))
+POSTGRES_USER = os.getenv("POSTGRES_USER", config("POSTGRES_USER"))
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", config("POSTGRES_PASSWORD"))
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", config("POSTGRES_HOST"))
 
 
 class DataProcessing:
@@ -19,9 +28,9 @@ class DataProcessing:
         self.src_data_path = src_data_path
         self.processed_data_path = processed_data_path
 
-        self.minioClient = MyMinio('minio-access-key', 'minio-secret-key')
-        self.pg_instance = MyPgConnect(dbname='internship', user='postgres',
-                                       password='postgres', host='db')
+        self.minioClient = MyMinio(MINIO_ACCESS_KEY, MINIO_SECRET_KEY)
+        self.pg_instance = MyPgConnect(dbname=POSTGRES_DB, user=POSTGRES_USER,
+                                       password=POSTGRES_PASSWORD, host=POSTGRES_HOST)
 
     def check_id(self, user_id: str):
         """
@@ -185,3 +194,6 @@ class DataProcessing:
 
         self.pg_instance.insert_users('users', contents)
 
+
+if __name__ == "__main__":
+    print(POSTGRES_HOST)

@@ -46,10 +46,10 @@ class MyPgConnect:
         crsr.execute("""
             CREATE TABLE IF NOT EXISTS users(
                 id SERIAL PRIMARY KEY NOT NULL,
-                user_id varchar (20) NOT NULL,
-                first_name varchar (30) NOT NULL,
-                last_name varchar (30) NOT NULL,
-                birthdate varchar (30) NOT NULL,
+                user_id varchar (50) NOT NULL,
+                first_name varchar (50) NOT NULL,
+                last_name varchar (50) NOT NULL,
+                birthdate varchar (50) NOT NULL,
                 img_path varchar (250) NOT NULL
             );
         """)
