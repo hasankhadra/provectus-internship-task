@@ -302,5 +302,5 @@ Note that the list of processes was very big and couldn't fit in one screen shot
 The output of the script will be stored in `nohup.out` file.
 	How would you close it after some period of time? solution: 
 	First find the process PID using the command `ps ax | grep my_program.py`.
-	Then to stop the process that is running the script, we using the command `kill 'PID of process'`
+	Then to stop the process that is running the script, we use the command `kill 'PID of process'`
 
