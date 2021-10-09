@@ -54,7 +54,7 @@ You can apply the following filters for the retrieved data:
 - `min_age`=MIN_AGE - if specified, it retrieves the records of all users that has a minimum age of `MIN_AGE`
 - `max_age`=MAX_AGE - if specified, it retrieves the records of all users that has a maximum age of `MAX_AGE`
 
-To apply a filter you can proved them as tags in the url, for example: [http://localhost:5000/data?min_age=35&max_age=40](http://localhost/data?min_age=35&max_age=40)
+To apply a filter you can proved them as tags in the url, for example: [http://localhost:5000/data?min_age=35&max_age=40](http://localhost:5000/data?min_age=35&max_age=40)
 returns the records of all users that age is between 35 and 40.
 
 
@@ -97,6 +97,18 @@ to give access to `srcdata` so you can paste your data there:
 sudo chmod 777 srcdata/
 ```
 Now you can paste data inside the `srcdata` and test the code.
+
+
+To see the data stored in `postgres` you need to open [http://0.0.0.0:5050/browser/](http://0.0.0.0:5050/browser/) in your browser. You will be prompted to 
+enter a master password. If you haven't changed it before it should be `postgres`. Then, you need to create a server. Put any name you want, but make sure 
+to put the following credintials correctly:
+```
+Host = db
+Port = 5432
+Maintenance database = postgres
+Username = postgres
+Password = postgres
+```
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
