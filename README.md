@@ -119,6 +119,8 @@ I added a `.env` file to configure the connection locally. The code is set up so
 automatically use the local `.env` file for the connections. In case you want use differeny configurations when testing locally, 
 you can modify any of the env variables in the `.env` file.
 
+**IMPORTANT**:
+To test the code locally, you need to install `python-decouple` with the command `pip install python-decouple`.
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
