@@ -6,15 +6,20 @@
 <a name="level3"></a>
 ## 1. Data Processing Task - Level 3
 
-1. [ Prerequisites. ](#prereq)
-2. [ Description. ](#desc)
-3. [ Installation and Running. ](#install)
-4. [ Logic. ](#logic)
-5. [ Important Notes. ](#notes)
+1. [ Introduction. ](#intro)
+2. [ Prerequisites. ](#prereq)
+3. [ Description. ](#desc)
+4. [ Installation and Running. ](#install)
+5. [ Logic. ](#logic)
+6. [ Important Notes. ](#notes)
 
+
+<a name="intro"></a>
+### 1. Introduction
+This project was made by Hasan Khadra which is the solution for the [internship task](https://github.com/provectus/internship/tree/main/dataeng) at Provectus.
 
 <a name="prereq"></a>
-### 1. Prerequisites
+### 2. Prerequisites
 - Python 3.7 or greater
 - Docker 19.03 or greater
 - Git 2.28 or greater
@@ -25,7 +30,7 @@ To install `docker-compose` visit the following [link](https://docs.docker.com/c
 
 
 <a name="desc"></a>
-### 2. Description
+### 3. Description
 In this project we implemented a dockerized service to process users data, which is equivalent to **Level 3**. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
 for each user (if any) and then stores the intermediate results in `minio`. Finally all processed data is then migrated to `postgres` database. The service 
 periodically processes the data inside `minio/srcdata`. You can interact with the service with a `flask` server that works on two endpoints
@@ -58,7 +63,7 @@ returns the records of all users that age is between 35 and 40.
 
 
 <a name="install"></a>
-### 3. Installation and Running
+### 4. Installation and Running
 Clone this repo to your local machine. `cd` to the directory of the repo `provectus-internship-task` and run:
 ```
 sudo docker-compose up --build -d
@@ -79,7 +84,7 @@ Now the service is up and running on [http://localhost:5000/](http://localhost:5
 
 
 <a name="logic"></a>
-### 4. Logic
+### 5. Logic
 When you run the command `sudo docker-compose up --build -d` the script `app.py` get excuted. First, it schedules a scheduler to keep
 running the instance every 15 minutes. Then it initiates the `minioClient` and `postgres` instances and then it runs the flask app. 
 Now, for each `GET` request to the server, the `app.py` calls a function from `main.py` that retrieves the data from `postgres` DB. And 
@@ -89,7 +94,7 @@ When `main.py` processes the data, it connects with the `minioClient` and `postg
 inside `minio` and also in the `postgres` database.
 
 <a name="notes"></a>
-### 5. Important Notes
+### 6. Important Notes
 
 - After you run the `docker-compose`, to manually add data to `srcdata` you need to `cd` to `provectus-internship-task/minio` and run the following command 
 to give access to `srcdata` so you can paste your data there:
