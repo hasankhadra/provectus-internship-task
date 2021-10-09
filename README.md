@@ -10,7 +10,8 @@
 1. [ Prerequisites. ](#prereq)
 2. [ Description. ](#desc)
 3. [ Installation and Running. ](#install)
-4. [ Extra Notes. ](#usage)
+4. [ Logic. ](#logic)
+5. [ Extra Notes. ](#usage)
 
 
 <a name="prereq"></a>
@@ -56,13 +57,15 @@ You can apply the following filters for the retrieved data:
 To apply a filter you can proved them as tags in the url, for example: [http://localhost:5000/data?min_age=35&max_age=40](http://localhost/data?min_age=35&max_age=40)
 returns the records of all users that age is between 35 and 40.
 
+
 <a name="install"></a>
 ### 3. Installation and Running
 Clone this repo to your local machine. `cd` to the directory of the repo `provectus-internship-task` and run:
 ```
 sudo docker-compose up --build -d
 ```
-After you run the docker-compose. You need to give access to minio and pgadmin directories. On the same terminal type `Ctrl+C` and then run:
+Wait until you get an error `PermissionError: [Errno 13] Permission denied` from `pg_admin`.
+The reason of the error is because you need to give access to minio and pgadmin directories. On the same terminal type `Ctrl+C` and then run:
 ```
 sudo chmod 777 minio/
 sudo chmod 777 pgadmin/
@@ -70,13 +73,23 @@ sudo chmod 777 pgadmin/
 Now you need to restart the `docker-compose` containers you ran before. On the same terminal run:
 ```
 sudo docker-compose down
-sudo docker-compose up --build -d
+sudo docker-compose up -d
 ```
 Now the service is up and running on [http://localhost:5000/](http://localhost:5000/).
 
 
+<a name="logic"></a>
+### 4. Logic
+When you run the command `sudo docker-compose up --build -d` the script `app.py` get excuted. First, it schedules a scheduler to keep
+running the instance every 15 minutes. Then it initiates the `minioClient` and `postgres` instances and then it runs the flask app. 
+Now, for each `GET` request to the server, the `app.py` calls a function from `main.py` that retrieves the data from `postgres` DB. And 
+for each `POST` request, the `app.py` calls another function from `main.py` to manually process the data.
+
+When `main.py` processes the data, it connects with the `minioClient` and `postgres` to read the files and then store the results in `output.csv`
+inside `minio` and also in the `postgres` database.
+
 <a name="usage"></a>
-### 4. Extra Notes
+### 5. Extra Notes
 
 After you run the `docker-compose`, to manually add data to `srcdata` you need to `cd` to `provectus-internship-task/minio` and run the following command 
 to give access to `srcdata` so you can paste your data there:
@@ -197,9 +210,8 @@ Note that the list of processes was very big and couldn't fit in one screen shot
 2. List process environment variables by given PID - solution: ``sudo cat /proc/`pgrep 'the process name'`/environ``
 ![environ](env.png)
 3. Launch a python program my_program.py through CLI in the background. solution: `nohup python3 my_program.py &`
-4. How would you close it after some period of time? solution: 
-
-First find the process PID using the command `ps ax | grep my_program.py`.
-
-Then to stop the process that is running the script, we using the command `kill 'PID of process'`
+The output of the script will be stored in `nohup.out` file.
+	How would you close it after some period of time? solution: 
+	First find the process PID using the command `ps ax | grep my_program.py`.
+	Then to stop the process that is running the script, we using the command `kill 'PID of process'`
 
