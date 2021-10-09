@@ -96,6 +96,7 @@ to give access to `srcdata` so you can paste your data there:
 ```
 sudo chmod 777 srcdata/
 ```
+Now you can paste data inside the `srcdata` and test the code.
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
@@ -213,8 +214,13 @@ def count_connections(list1: list, list2: list) -> int:
 
 Solution:
 ```
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def longest_non_repeating_substring(s: str) -> int:
-
+    """
+    :param s: the string s as described in the problem statement
+    :return: the longest substring without repeating characters.
+    """
     # the smallest valid start of a beginning of the substring
     start = 0
     ans = 0
