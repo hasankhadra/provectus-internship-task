@@ -117,8 +117,7 @@ Password = postgres
 
 - In the `Dockerfile` I added the `ENV` variables for the configuration of the connections for `minio` and `postgres`. Although these 
 environment variables already exist in the `docker-compose.yml` file, but they're only available during the build of the image but not after the image is built.
-Now, to run the code localy, you need to remove the `web-service` from the `docker-compose.yml`. Then run the `sudo docker-compose up --build`, and then run
-`python3 app.py` in the `provectus-internship-task` directory. 
+Now, to run the code localy, you need to remove the `web-service` from the `docker-compose.yml`. Then run the `sudo docker-compose up --build`. Before you run the app, you need to manually install the libraries inside `requirements.txt` since docker won't download it for local use. Now you can run the flask app `python3 app.py` in the `provectus-internship-task` directory. 
 
 - I added a `.env` file to configure the connection locally. The code is set up so that, if it's not running on docker, it will
 automatically use the local `.env` file for the connections. In case you want use differeny configurations when testing locally, 
@@ -126,9 +125,6 @@ you can modify any of the env variables in the `.env` file.
 
 - Note that the `.env` should not be uploaded to the repo for saftey and security reasons. However, for the purpose of this internship, I uploaded
 file to let you see all the practices I've followed.
-
-**IMPORTANT**:
-To test the code locally, you need to manually install the libraries inside `requirements.txt` since docker won't download it for local use.
 
 <a name="codingtasks"></a>
 ## 2. Coding Tasks for Data Engineers
