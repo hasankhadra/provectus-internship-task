@@ -116,7 +116,8 @@ Now, to run the code localy, you need to remove the `web-service` from the `dock
 `python3 app.py` in the `provectus-internship-task` directory. 
 
 I added a `.env` file to configure the connection locally. The code is set up so that, if it's not running on docker, it will
-automatically use the local `.env` file for the connections.
+automatically use the local `.env` file for the connections. In case you want use differeny configurations when testing locally, 
+you can modify any of the env variables in the `.env` file.
 
 
 <a name="codingtasks"></a>
