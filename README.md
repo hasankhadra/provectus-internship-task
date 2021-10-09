@@ -69,6 +69,7 @@ The reason of the error is because you need to give access to minio and pgadmin 
 ```
 sudo chmod 777 minio/
 sudo chmod 777 pgadmin/
+sudo chmod 777 postgres-data/
 ```
 Now you need to restart the `docker-compose` containers you ran before. On the same terminal run:
 ```
