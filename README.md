@@ -11,7 +11,7 @@
 2. [ Description. ](#desc)
 3. [ Installation and Running. ](#install)
 4. [ Logic. ](#logic)
-5. [ Extra Notes. ](#usage)
+5. [ Important Notes. ](#notes)
 
 
 <a name="prereq"></a>
@@ -88,8 +88,8 @@ for each `POST` request, the `app.py` calls another function from `main.py` to m
 When `main.py` processes the data, it connects with the `minioClient` and `postgres` to read the files and then store the results in `output.csv`
 inside `minio` and also in the `postgres` database.
 
-<a name="usage"></a>
-### 5. Extra Notes
+<a name="notes"></a>
+### 5. Important Notes
 
 - After you run the `docker-compose`, to manually add data to `srcdata` you need to `cd` to `provectus-internship-task/minio` and run the following command 
 to give access to `srcdata` so you can paste your data there:
