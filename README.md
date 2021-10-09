@@ -27,7 +27,7 @@ To install `docker-compose` visit the following [link](https://docs.docker.com/c
 
 <a name="desc"></a>
 ### 2. Description
-In this project we implemented a dockerized service to process users data, which is equavilent to **Level 3**. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
+In this project we implemented a dockerized service to process users data, which is equivalent to **Level 3**. It extracts the users data `(first_name, last_name, birthts)` from `minio` and finds the image path `img_path` 
 for each user (if any) and then stores the intermediate results in `minio`. Finally all processed data is then migrated to `postgres` database. The service 
 periodically processes the data inside `minio/srcdata`. You can interact with the service with a `flask` server that works on two endpoints
 - POST http://localhost:5000/data - Manually run data processing in `minio/src_data`
@@ -101,7 +101,18 @@ sudo chmod 777 srcdata/
 ## 2. Coding Tasks for Data Engineers
 
 ### SQL
-1. 
+1. Rewrite this SQL without subquery:
+```
+SELECT id
+FROM users
+WHERE id NOT IN (
+	SELECT user_id
+	FROM departments
+	WHERE department_id = 1
+);
+```
+
+Solution:
 ```
 SELECT users.id as id
 FROM users
@@ -110,7 +121,19 @@ ON users.id = departments.user_id
 WHERE departments.user_id is NULL OR departments.department_id != 1;
 ```
 
-2.
+2. Write a SQL query to find all duplicate lastnames in a table named **user**
+```
++----+-----------+----------+
+| id | firstname | lastname |
++----+-----------+----------+
+| 1  | Ivan      | Sidorov  |
+| 2  | Alexandr  | Ivanov   |
+| 3  | Petr      | Petrov   |
+| 4  | Stepan    | Ivanov   |
++----+-----------+----------+
+```
+
+Solution:
 ```
 SELECT last_name 
 FROM user
@@ -118,7 +141,27 @@ GROUP BY last_name
 HAVING COUNT(last_name) > 1;
 ```
 
-3.
+3. Write a SQL query to get a username from the user table with the second highest salary from salary tables. Show the username and it's salary in the result.
+```
++---------+--------+
+| user_id | salary |
++---------+--------+
+| 1       | 1000   |
+| 2       | 1100   |
+| 3       | 900    |
+| 4       | 1200   |
++---------+--------+
++----+-------------+
+| id | username    |
++----+-------------+
+| 1  | Alex        |
+| 2  | Maria       |
+| 3  | Bob         |
+| 4  | Sean        |
++----+-------------+
+```
+
+Solution:
 ```
 SELECT MAX(user.username) AS username, MAX(salary.salary) AS salary
 FROM user, salary
@@ -132,7 +175,19 @@ in the server configuration it will give an error. However, if the `ONLY_FULL_GR
 can be removed and the query will work just fine.
 
 ### Algorithms and Data Structures
-1.
+1. Optimise execution time of this Python code snippet:
+```
+def count_connections(list1: list, list2: list) -> int:
+  count = 0
+  
+  for i in list1:
+    for j in list2:
+      if i == j:
+        count += 1
+  
+  return count
+```
+Solution:
 ```
 def count_connections(list1: list, list2: list) -> int:
     cnt = {}
@@ -154,7 +209,9 @@ def count_connections(list1: list, list2: list) -> int:
 
     return count
 ```
-2.
+2. Given a string `s`, find the length of the longest substring without repeating characters. Analyze your solution and please provide Space and Time complexities.
+
+Solution:
 ```
 def longest_non_repeating_substring(s: str) -> int:
 
@@ -179,7 +236,9 @@ def longest_non_repeating_substring(s: str) -> int:
 
     return ans
 ```
-3.
+3. Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+Solution:
 ```
 def index_of_target(nums: list, target: int):
     l, r = 0, len(nums) - 1
