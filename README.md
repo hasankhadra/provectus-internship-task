@@ -297,8 +297,7 @@ def index_of_target(nums: list, target: int):
 ```
 ### Linux Shell
 
-1. List processes listening on ports 80 and 443 - solution: `lsof -i :443 & lsof -i :80`
-![ports](ports.png)
+1. List processes listening on ports 80 and 443 - solution: `netstat -ltnp | grep -w ':80|443'`
 Note that the list of processes was very big and couldn't fit in one screen shot.
 2. List process environment variables by given PID - solution: ``sudo cat /proc/`pgrep 'the process name'`/environ``
 ![environ](env.png)
